@@ -3,5 +3,6 @@ This is a repository for dumb, stupid experiments where I try to make programs d
 DISCLAIMER:
 Everything here will be awful. Look/ touch/ steal at risk to your own mental health.
 
-For inquiries, including but not limited to "what is this", "why would you do this" and "who hurt you", I can be reached at:
+For inquiries, including but not limited to "what is this", "why would you do this" and "who hurt you", I can be reached at the email address below:
+
 hugh.m@me.com
