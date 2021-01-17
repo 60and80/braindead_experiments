@@ -19,6 +19,33 @@ class Expression:
     # can be determined whether TRUE, FALSE or both are possible from an OR expression). This should probably
     # be done as a part of determining possible values of an OR expression (recursively evaluate both sides, 
     # in order to determine the possible values)
+
+    # How to link different instances of the same variable??
+    # Requirements: 
+    # Have a data structure requiring that A == A elsewhere in the equation, at all times
+    # In parsing, automatically detect multiple instances of the same variable, and link them
+    # Efficient ways to link A <-> A, B <-> B, within a structure that evaluates recursively like this one?
+
+    # Ok I think much more sensible:
+    # As part of recursive structure, pass up truth table of all values involved thus far, mapped to output 
+    # of the expression as evaluated so far. So, (A | B) & A would evaluate like this:
+
+    # A  B  A|B  (A|B) & A
+    # 0  0  0       0
+    # 1  0  1       1
+    # 0  1  1       0
+    # 1  1  1       1
+
+    # This way the system can immediately eliminate combinations where there are conflicting 
+    # This method would also have to keep track of which values were already included - such that if another
+    # instance of the A variable is encountered, it is aliased to the existing one. This can be done by linking
+    # all instances of the variable at parsing time.
+
+    # At this point I think I am starting to understand why this is an NP hard problem. This design thus far
+    # is just a fairly standard pen and paper algorithm for solving small boolean problems.
+    
+    # Quick and dirty solution would be to eliminate possibilities where A != A as a part of evaluation?
+
  
     pass
 
