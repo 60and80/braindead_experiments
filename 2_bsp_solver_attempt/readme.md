@@ -9,11 +9,11 @@ A & B
 
 Will evaluate to true iff the input A and input B are both set to true.
 
-A   B   A&B
-0   0   0
-1   0   0
-0   1   0
-1   1   1
+A   B   A&B  
+0   0   0  
+1   0   0  
+0   1   0  
+1   1   1  
 
 The goal is to try and develop an algorithm that solves in quadratic time, rather than exponential, even for
 worst-case scenario problems. Note that I am not convinced I can succeed in this - but I am also not sure why
