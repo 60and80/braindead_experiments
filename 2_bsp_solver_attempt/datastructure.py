@@ -1,7 +1,9 @@
 # In order to support adjustments, iterations and redesigns of this solver's method, it is first important
 # to have a flexible system that can be used to represent boolean expressions.
 
-# TODO: Works by setting a "required value" for each individual expression 
+# toDONE: Works by setting a "required value" for each individual expression 
+# TODO: Research Python strong typing
+# TODO: Formalise documentation
 
 # Additionally, a parser to allow a string, eg: A & B to be converted to an expression in this data format is
 # likely to help with the process.
@@ -53,13 +55,13 @@ class Expression:
         self.required_val = req_val
 
     def evaluate(self): #Important for evaluating entire tree structure
-        return required_val in possible_vals
+        return self.required_val in self.possible_vals
  
 class Variable(Expression):
     possible_vals = [True, False]
 
 class ANDExpression(Expression):
-    child1 = None # Research strong typing
+    child1 = None 
     child2 = None
 
     def __init__(self, req_val, expr1, expr2):
@@ -67,13 +69,35 @@ class ANDExpression(Expression):
         self.child1 = expr1
         self.child2 = expr2
         self.possible_vals = []
-        if True in child1.possible_vals & True in child2.possible_vals:
+        if True in self.child1.possible_vals & True in self.child2.possible_vals:
+            self.possible_vals.append(True)
+        if False in self.child1.possible_vals | False in self.child2.possible_vals:
             self.possible_vals.append(False)
-        if False in child1.possible_vals | False in child2.possible_vals:
-            self.possible_vals.append(False)
+
 
 class ORExpression(Expression):
-    pass
+    child1 = None
+    child2 = None
+
+    def __init__(self, req_val, expr1, expr2):
+        self.required_val = req_val
+        self.child1 = expr1
+        self.child2 = expr2
+        self.possible_vals = []
+        if True in self.child1.possible_vals | True in self.child2.possible_vals:
+            self.possible_vals.append(True)
+        if False in self.child1.possible_vals & False in self.child2.possible_vals:
+            self.possible_vals.append(False)
+
 
 class NOTExpression(Expression):
-    pass
+    child = None
+
+    def __init__(self, req_val, expr):
+        self.required_val = req_val
+        self.child = expr
+        self.possible_vals = []
+        if False in self.child.possible_vals:
+            self.possible_vals.append(True)
+        if True in self.child.possible_vals:
+            self.possible_vals.append(False)
