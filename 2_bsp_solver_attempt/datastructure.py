@@ -4,6 +4,7 @@
 # toDONE: Works by setting a "required value" for each individual expression 
 # TODO: Research Python strong typing
 # TODO: Formalise documentation
+# TODO: FIGURE OUT HOW TO Attach variable values to possible values
 
 # Additionally, a parser to allow a string, eg: A & B to be converted to an expression in this data format is
 # likely to help with the process.
@@ -54,7 +55,7 @@ class Expression:
     def __init__(self, req_val):
         self.required_val = req_val
 
-    def evaluate(self): #Important for evaluating entire tree structure
+    def evaluate(self): # Important for evaluating entire tree structure TODO: Add variable pulling
         return self.required_val in self.possible_vals
  
 class Variable(Expression):
@@ -69,7 +70,7 @@ class ANDExpression(Expression):
         self.child1 = expr1
         self.child2 = expr2
         self.possible_vals = []
-        if True in self.child1.possible_vals & True in self.child2.possible_vals:
+        if True in self.child1.possible_vals & True in self.child2.possible_vals: # TODO: Refactor this!!
             self.possible_vals.append(True)
         if False in self.child1.possible_vals | False in self.child2.possible_vals:
             self.possible_vals.append(False)
