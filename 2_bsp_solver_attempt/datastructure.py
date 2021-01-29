@@ -5,6 +5,8 @@
 # TODO: Research Python strong typing
 # TODO: Formalise documentation
 # TODO: FIGURE OUT HOW TO Attach variable values to possible values
+# TODO: Error handling! Especially for truthTable class
+# TODO: Test
 
 # Additionally, a parser to allow a string, eg: A & B to be converted to an expression in this data format is
 # likely to help with the process.
@@ -102,3 +104,17 @@ class NOTExpression(Expression):
             self.possible_vals.append(True)
         if True in self.child.possible_vals:
             self.possible_vals.append(False)
+
+class TruthTable:
+    varList = None
+    truthTable = None
+
+    def __init__(self, varList, outputList):
+        self.varList = varList
+        self.truthTable = []
+        for i in range(2 ** len(varList)): # EXPONENTIAL! Oop. Try Hashing?
+            entry = []
+            for j in range(len(varList)):
+                entry.append(i % (j+1 *2) == 1) # 0 false, 1 true
+            self.truthTable.append(entry)
+            
