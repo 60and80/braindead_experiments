@@ -61,7 +61,7 @@ class Expression:
         return self.required_val in self.possible_vals
  
 class Variable(Expression):
-    possible_vals = [True, False]
+    self.possible_vals = [True, False]
 
 class ANDExpression(Expression):
     child1 = None 
@@ -105,7 +105,7 @@ class NOTExpression(Expression):
         if True in self.child.possible_vals:
             self.possible_vals.append(False)
 
-class TruthTable:
+class TruthTable: # Adding this just turns this into a BF exponential approach.
     varList = None
     truthTable = None
 
@@ -115,6 +115,10 @@ class TruthTable:
         for i in range(2 ** len(varList)): # EXPONENTIAL! Oop. Try Hashing?
             entry = []
             for j in range(len(varList)):
-                entry.append(i % (j+1 *2) == 1) # 0 false, 1 true
+                entry.append(i % (j+1 * 2) == 1) # 0 false, 1 true
             self.truthTable.append(entry)
             
+
+# SHELVING for now - "possible vals" approach has a major flaw, in that it does not actually account for
+# multiple instances of the same variable. Can see no obvious way to fix - making another attempt at 
+# framework. 

@@ -1,0 +1,39 @@
+First attempt at solver ran into a major issue before actually reaching a runnable prototype:
+
+The architecture was in no way going to be able to account for multiple uses of the same variable. So sure, the "possible values from expression" approach might actually be a good way of evaluating some expressions, but for others it'd be straight up brute-force.
+
+Additionally, if an expression is arbitrarily expanded, computation time would extend accordingly. May be solvable with a simplifier? Idk. There are only 2^n maximum combinations anyway, but the whole point is to avoid running through all of them.
+
+Aight, time to spitball against a couple of expressions that can have their satisfiability evaluated intuitively (or manually):
+
+SATISFIABLE:
+
+A
+!A
+B
+!B
+A | B
+A & B
+!(A & B)
+!A & !B
+A & !B 
+!A & B
+(A & !B) | (!A & B)     (A XOR B)
+
+UNSATISFIABLE:
+
+A & !A
+A 
+
+THOUGHT: In order for a problem to be unsatisfiable, the same variable must be present more than once, with required states that contradict one another.
+
+New idea, Variable-oriented possible values analysis!
+
+Precis of concept:
+Track per-variable what the current possible states are, while running through whole expression depth-first.
+
+Problem is, in worst case that's still just going to end up running in exponential time. May require running through entire expression with every variable combination in order to actually finish evaluating. Or would it? 
+
+Another idea! Tracking current required states against possible, outwards-in.
+
+Working from the outermost expression, you could have a list (?) of possible configurations that would currently allow the expression to be satisfied. Only finding a direct variable contradiction would actually eliminate an expression.
