@@ -61,7 +61,7 @@ class Expression:
         return self.required_val in self.possible_vals
  
 class Variable(Expression):
-    self.possible_vals = [True, False]
+    possible_vals = [True, False]
 
 class ANDExpression(Expression):
     child1 = None 
